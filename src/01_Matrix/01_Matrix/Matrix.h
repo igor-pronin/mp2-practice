@@ -30,7 +30,7 @@ public:
 	{
 		for (int i = 0; i < a.size; i++)
 			{
-				cout << "entering vector " << i << endl;
+				cout << "введите " << i << " строку матрицы" << endl;
 				in >> a.elements[i];
 			}
 		return in;
@@ -58,7 +58,6 @@ bool TMatrix <ValType> ::operator ==(const TMatrix<ValType>& a) const
 {
 	int flag = 0;
 	if (this->size != a.size)
-		//cout << "Размер не совпалает!" << endl;
 		return false;
 	for (int i = 0; i < a.size; i++)
 	{
@@ -72,10 +71,7 @@ bool TMatrix <ValType> ::operator ==(const TMatrix<ValType>& a) const
 template <class ValType>
 bool TMatrix<ValType> :: operator !=(const TMatrix<ValType>& a) const
 {
-	if ((*this == a) == true)
-		return false;
-	return true;
-	//return !(*this == a);
+	return !(*this == a);
 }
 template <class ValType>
 TMatrix <ValType> TMatrix <ValType> :: operator +(ValType a)
@@ -105,18 +101,21 @@ template <class ValType>
 TVector <ValType> TMatrix <ValType> :: operator *(const TVector <ValType> &a)
 {
 	if (this->size != a.size)
-		throw "Размеры матрицы и вектора не совпадают";
+		throw "Размер матрицы и вектора не совпадает";
 	TVector<ValType> b(a.size, 0);
 	for (int i = 0; i < this->size; i++)
-	for (int j = this->elements[i].startIndex; j < this->elements[i].size; j++)
-		b.elements[i] += this->elements[i][j] * a.elements[j];
+	{
+		b.elements[i] = 0;
+		for (int j = i; j < this->size; j++)
+			b.elements[i] += this->elements[i][j-i] * a.elements[j];
+	}
 	return b;
 }
 template <class ValType>
 TMatrix <ValType> TMatrix <ValType> :: operator + (const TMatrix<ValType> &a)
 {
 	if (this->size != a.size)
-		throw "Размер не совпадает";
+		throw "Размер матрицы не совпадает";
 	TMatrix b(a.size);
 	for (int i = 0; i < this->size; i++)
 		b.elements[i] = this->elements[i] + a.elements[i];
@@ -126,7 +125,7 @@ template <class ValType>
 TMatrix <ValType> TMatrix <ValType> :: operator - (const TMatrix<ValType> &a)
 {
 	if (this->size != a.size)
-		throw "Размер не совпадает";
+		throw "Размер матрицы не совпадает";
 	TMatrix b(a.size);
 	for (int i = 0; i < this->size; i++)
 			b.elements[i] = this->elements[i] - a.elements[i];
@@ -143,7 +142,6 @@ TMatrix <ValType>& TMatrix <ValType> ::operator = (const TMatrix<ValType> &a)
 		this->size = a.size;
 		this->elements = new TVector<ValType>[this->size];
 	}
-	//memcpy(this->elements, a.elements, this->size * sizeof(ValType));
 	for (int i = 0; i < this->size; i++)
 		this->elements[i] = a.elements[i];
 	return *this;

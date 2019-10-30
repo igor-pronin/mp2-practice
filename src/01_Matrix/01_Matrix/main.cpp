@@ -5,12 +5,17 @@ int main()
 {
 	int choise, size, startIndex, _size, _startIndex, msize, m_size, t_size, t_startIndex;
 	setlocale(LC_ALL, "Russian");
-	//cout << "Введите 1, если хотите протестировать векторы, введите 2, если хотите протестировать матрицы" << endl;
-	//cin >> choise;
-	//switch (choise)
-	//{
-	//case 1:
-		/*cout << "Vector testing!" << endl;
+	try
+	{ 
+	cout << "Введите 1, если хотите протестировать векторы, введите 2, если хотите протестировать матрицы" << endl;
+	cin >> choise;
+	switch (choise)
+	{
+	case 1:
+		//try
+		//{
+	{
+		cout << "Vector testing!" << endl;
 		cout << "Введите размер первого вектора" << endl;
 		cin >> size;
 		cout << "Ввдите стартиндекc вектора" << endl;
@@ -41,9 +46,11 @@ int main()
 		cout << "A*B: " << A * B << endl;
 		cout << "Длина вектора A: " << A.Length() << endl;
 		cout << "A=B: " << (A = B) << endl;
-		cout << "A[0]: " << A[0] << endl;*/
-		//break;
-	//case 2:
+		cout << "A[0]: " << A[0] << endl;
+		break;
+	}
+	case 2:
+	{
 		cout << "Matrix testing!" << endl;
 		cout << "Введите размер первой матрицы" << endl;
 		cin >> msize;
@@ -52,7 +59,7 @@ int main()
 		cin >> C;
 		cout << "Матрица C:" << endl;
 		cout << C;
-		/*cout << "Введите размер второй матрицы" << endl;
+		cout << "Введите размер второй матрицы" << endl;
 		cin >> m_size;
 		TMatrix<int> D(m_size);
 		cout << "Введите координаты матрицы" << endl;
@@ -69,16 +76,23 @@ int main()
 		cout << "Вектор E:" << endl;
 		cout << E << endl;
 
-		cout << "C==D: " << (C == D) << endl;
-		cout << "C!=D: " << (C != D) << endl;
-		cout << "C+5: " << C + 5 << endl;
-		cout << "C-5: " << C - 5 << endl;
-		cout << "C*5: " << C * 5 << endl;
-		cout << "C*E: " << C * E << endl;
-		cout << "C+D: " << C + D << endl;
-		cout << "C-D: " << C - D << endl;
-		//cout << "C*D: " << C * D << endl;
-		cout << "C=D: " << (C = D) << endl;*/
+		cout << "C==D: " << (C == D) << endl << endl;
+		cout << "C!=D: " << (C != D) << endl << endl;
+		cout << "C+5: " << endl << C + 5 << endl;
+		cout << "C-5: " << endl << C - 5 << endl;
+		cout << "C*5: " << endl << C * 5 << endl;
+		cout << "C*E: " << endl << C * E << endl << endl;
+		cout << "C+D: " << endl << C + D << endl;
+		cout << "C-D: " << endl << C - D << endl;
+		cout << "C=D: " << endl << (C = D) << endl;
+		break;
+	}
+	}
+	}
+	catch (const char* str)
+	{
+		cout << str << endl;
+	}
 		//break;
 	//default:
 		//cout << "Выбранный вариант отсутствует" << endl;

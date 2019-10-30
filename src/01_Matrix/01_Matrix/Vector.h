@@ -10,7 +10,7 @@ public:
 	ValType* elements;
 	int startIndex;
 public:
-	TVector(int size = 3, int startIndex = 0);
+	explicit TVector(int size = 3, int startIndex = 10);
 	TVector(const TVector&);
 	~TVector();
 	bool operator ==(const TVector&) const;
@@ -41,11 +41,11 @@ public:
 template <class ValType>
 TVector <ValType> ::TVector(int _size, int _startindex)
 {
+	if (_size < 1)
+		throw "Вектор не может быть построен";
 	size = _size;
 	startIndex = _startindex;
 	elements = new ValType[size];
-	for (int i = 0; i < size; i++)
-		elements[i] = 0;
 }
 template <class ValType>
 TVector <ValType> :: TVector(const TVector& a)
@@ -68,8 +68,7 @@ template <class ValType>
 bool TVector <ValType> :: operator ==(const TVector& a) const
 {
 	int flag = 0;
-	if ((size != a.size) && (startIndex != a.startIndex))
-		//cout << "Размер не совпалает!" << endl;
+	if ((size != a.size) || (startIndex != a.startIndex))
 		return false;
 	for (int i = 0; i < size; i++)
 	{
@@ -121,7 +120,7 @@ template <class ValType>
 TVector <ValType> TVector <ValType> :: operator +(const TVector& a)
 {
 	if (size != a.size)
-		cout << "Длина не совпадает!" << endl;
+		throw "Длина векторов не совпадает!";
 	TVector b(size, startIndex);
 	for (int i = 0; i < size; i++)
 		b.elements[i] = elements[i] + a.elements[i];
@@ -131,7 +130,7 @@ template <class ValType>
 TVector <ValType> TVector <ValType> :: operator -(const TVector& a)
 {
 	if (size != a.size)
-		cout << "Длина не совпадает!" << endl;
+		throw "Длина векторов не совпадает!";
 	TVector b(size, startIndex);
 	for (int i = 0; i < size; i++)
 		b.elements[i] = elements[i] - a.elements[i];
@@ -141,7 +140,7 @@ template <class ValType>
 ValType TVector <ValType> :: operator *(const TVector& a)
 {
 	if (size != a.size)
-		cout << "Длина не совпадает!" << endl;
+		throw "Длина векторов не совпадает!";
 	ValType b = 0;
 	for (int i = 0; i < size; i++)
 		b += elements[i] * a.elements[i];
