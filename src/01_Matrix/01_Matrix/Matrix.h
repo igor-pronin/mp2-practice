@@ -1,7 +1,7 @@
-#pragma once
+п»ї#pragma once
 #include "Vector.h"
 template <class ValType>
-class TMatrix : public TVector<TVector<ValType> > // сделать правильоне наследование полей // наладить throw
+class TMatrix : public TVector<TVector<ValType> > // СЃРґРµР»Р°С‚СЊ РїСЂР°РІРёР»СЊРѕРЅРµ РЅР°СЃР»РµРґРѕРІР°РЅРёРµ РїРѕР»РµР№ // РЅР°Р»Р°РґРёС‚СЊ throw
 {
 public:
 	TMatrix(int size = 10);
@@ -40,7 +40,7 @@ template <class ValType>
 TMatrix <ValType> ::TMatrix(int _size) : TVector<TVector<ValType> >(_size)
 {
 	if (_size < 1)
-		throw "Матрица не может быть построена";
+		throw "РњР°С‚СЂРёС†Р° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїРѕСЃС‚СЂРѕРµРЅР°";
 	for (int i = 0; i < _size; i++)
 		this->elements[i] = TVector<ValType>(_size - i, i);
 }
@@ -58,7 +58,7 @@ bool TMatrix <ValType> ::operator ==(const TMatrix<ValType>& a) const
 {
 	int flag = 0;
 	if (this->size != a.size)
-		//cout << "Размер не совпалает!" << endl;
+		//cout << "Р Р°Р·РјРµСЂ РЅРµ СЃРѕРІРїР°Р»Р°РµС‚!" << endl;
 		return false;
 	for (int i = 0; i < a.size; i++)
 	{
@@ -105,7 +105,7 @@ template <class ValType>
 TVector <ValType> TMatrix <ValType> :: operator *(const TVector <ValType> &a)
 {
 	if (this->size != a.size)
-		throw "Размеры матрицы и вектора не совпадают";
+		throw "Р Р°Р·РјРµСЂС‹ РјР°С‚СЂРёС†С‹ Рё РІРµРєС‚РѕСЂР° РЅРµ СЃРѕРІРїР°РґР°СЋС‚";
 	TVector<ValType> b(a.size, 0);
 	for (int i = 0; i < this->size; i++)
 	for (int j = this->elements[i].startIndex; j < this->elements[i].size; j++)
@@ -116,7 +116,7 @@ template <class ValType>
 TMatrix <ValType> TMatrix <ValType> :: operator + (const TMatrix<ValType> &a)
 {
 	if (this->size != a.size)
-		throw "Размер не совпадает";
+		throw "Р Р°Р·РјРµСЂ РЅРµ СЃРѕРІРїР°РґР°РµС‚";
 	TMatrix b(a.size);
 	for (int i = 0; i < this->size; i++)
 		b.elements[i] = this->elements[i] + a.elements[i];
@@ -126,7 +126,7 @@ template <class ValType>
 TMatrix <ValType> TMatrix <ValType> :: operator - (const TMatrix<ValType> &a)
 {
 	if (this->size != a.size)
-		throw "Размер не совпадает";
+		throw "Р Р°Р·РјРµСЂ РЅРµ СЃРѕРІРїР°РґР°РµС‚";
 	TMatrix b(a.size);
 	for (int i = 0; i < this->size; i++)
 			b.elements[i] = this->elements[i] - a.elements[i];

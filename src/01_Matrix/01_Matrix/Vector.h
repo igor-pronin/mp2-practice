@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <cstring>
 #include <iostream>
 using namespace std;
@@ -69,7 +69,7 @@ bool TVector <ValType> :: operator ==(const TVector& a) const
 {
 	int flag = 0;
 	if ((size != a.size) && (startIndex != a.startIndex))
-		//cout << "Размер не совпалает!" << endl;
+		//cout << "Р Р°Р·РјРµСЂ РЅРµ СЃРѕРІРїР°Р»Р°РµС‚!" << endl;
 		return false;
 	for (int i = 0; i < size; i++)
 	{
@@ -121,7 +121,7 @@ template <class ValType>
 TVector <ValType> TVector <ValType> :: operator +(const TVector& a)
 {
 	if (size != a.size)
-		cout << "Длина не совпадает!" << endl;
+		cout << "Р”Р»РёРЅР° РЅРµ СЃРѕРІРїР°РґР°РµС‚!" << endl;
 	TVector b(size, startIndex);
 	for (int i = 0; i < size; i++)
 		b.elements[i] = elements[i] + a.elements[i];
@@ -131,7 +131,7 @@ template <class ValType>
 TVector <ValType> TVector <ValType> :: operator -(const TVector& a)
 {
 	if (size != a.size)
-		cout << "Длина не совпадает!" << endl;
+		cout << "Р”Р»РёРЅР° РЅРµ СЃРѕРІРїР°РґР°РµС‚!" << endl;
 	TVector b(size, startIndex);
 	for (int i = 0; i < size; i++)
 		b.elements[i] = elements[i] - a.elements[i];
@@ -141,7 +141,7 @@ template <class ValType>
 ValType TVector <ValType> :: operator *(const TVector& a)
 {
 	if (size != a.size)
-		cout << "Длина не совпадает!" << endl;
+		cout << "Р”Р»РёРЅР° РЅРµ СЃРѕРІРїР°РґР°РµС‚!" << endl;
 	ValType b = 0;
 	for (int i = 0; i < size; i++)
 		b += elements[i] * a.elements[i];
@@ -176,7 +176,7 @@ template <class ValType>
 ValType TVector <ValType> :: operator [](int index)
 {
 	if ((index < 0) && (index > size))
-		throw "Индекс не существует";
+		throw "РРЅРґРµРєСЃ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚";
 	return elements[index];
 }
 
