@@ -21,6 +21,8 @@ public:
 	{
 		for (int i = 0; i < a.size; i++)
 		{
+			for (int j = 0; j < i; j++)
+				cout << "  ";
 			o << a.elements[i];
 			cout << endl;
 		}
