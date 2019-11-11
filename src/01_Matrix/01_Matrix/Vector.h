@@ -119,7 +119,7 @@ TVector <ValType> TVector <ValType> :: operator /(ValType a)
 template <class ValType>
 TVector <ValType> TVector <ValType> :: operator +(const TVector& a)
 {
-	if (size != a.size)
+	if ((size != a.size) || (startIndex != a.startIndex))
 		throw "Длина векторов не совпадает!";
 	TVector b(size, startIndex);
 	for (int i = 0; i < size; i++)
@@ -129,7 +129,7 @@ TVector <ValType> TVector <ValType> :: operator +(const TVector& a)
 template <class ValType>
 TVector <ValType> TVector <ValType> :: operator -(const TVector& a)
 {
-	if (size != a.size)
+	if ((size != a.size) || (startIndex != a.startIndex))
 		throw "Длина векторов не совпадает!";
 	TVector b(size, startIndex);
 	for (int i = 0; i < size; i++)
@@ -139,7 +139,7 @@ TVector <ValType> TVector <ValType> :: operator -(const TVector& a)
 template <class ValType>
 ValType TVector <ValType> :: operator *(const TVector& a)
 {
-	if (size != a.size)
+	if ((size != a.size) || (startIndex != a.startIndex))
 		throw "Длина векторов не совпадает!";
 	ValType b = 0;
 	for (int i = 0; i < size; i++)
@@ -174,7 +174,7 @@ TVector <ValType>& TVector <ValType> :: operator =(const TVector& a)
 template <class ValType>
 ValType TVector <ValType> :: operator [](int index)
 {
-	if ((index < 0) && (index > size))
+	if ((index < 0) && (index >= size))
 		throw "Индекс не существует";
 	return elements[index];
 }

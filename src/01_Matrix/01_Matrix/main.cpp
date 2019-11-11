@@ -3,7 +3,7 @@
 #include "Matrix.h"
 int main()
 {
-	int choise, size, startIndex, _size, _startIndex, msize, m_size, t_size, t_startIndex;
+	int choise, size, startIndex, _size, _startIndex, msize, m_size, t_size, t_startIndex, __size, __startIndex;
 	setlocale(LC_ALL, "Russian");
 	try
 	{ 
@@ -12,8 +12,6 @@ int main()
 	switch (choise)
 	{
 	case 1:
-		//try
-		//{
 	{
 		cout << "Vector testing!" << endl;
 		cout << "Введите размер первого вектора" << endl;
@@ -34,6 +32,9 @@ int main()
 		cin >> B;
 		cout << "Вектор B:" << endl;
 		cout << B << endl;
+		TVector<int> C(A);
+		cout << "Вектор С:" << endl;
+		cout << C << endl;
 
 		cout << "A==B: " << (A == B) << endl;
 		cout << "A!=B: " << (A != B) << endl;
@@ -75,6 +76,25 @@ int main()
 		cin >> E;
 		cout << "Вектор E:" << endl;
 		cout << E << endl;
+		TMatrix<int> F(C);
+		cout << "Матрица F:" << endl;
+		cout << F;
+		cout << "Введите размер вектора для преобразования типов" << endl;
+		cin >> __size;
+		cout << "Ввдите  стартиндекс вектора для преобразования типов" << endl;
+		cin >> __startIndex;
+		TVector<TVector<int>> G(__size, __startIndex);
+		cout << "заполните вектор векторов" << endl;
+		for (int i = 0; i < __size; i++)
+		{
+			G.elements[i] = TVector<int>(__size - i, i);
+			cin >> G.elements[i];
+		}
+		cout << "Матрица G:" << endl;
+		cout << G << endl;
+		TMatrix<int> H(G);
+		cout << "Матрица H:" << endl;
+		cout << H;
 
 		cout << "C==D: " << (C == D) << endl << endl;
 		cout << "C!=D: " << (C != D) << endl << endl;
@@ -84,7 +104,8 @@ int main()
 		cout << "C*E: " << endl << C * E << endl << endl;
 		cout << "C+D: " << endl << C + D << endl;
 		cout << "C-D: " << endl << C - D << endl;
-		cout << "C=D: " << endl << (C = D) << endl;
+		C = D;
+		cout << "C=D: " << endl << C << endl; // проверить конструкторы преобраз питов и констр копир, изменить операцию сравнения, сравнивать стартиндес в операц
 		break;
 	}
 	}
@@ -93,9 +114,5 @@ int main()
 	{
 		cout << str << endl;
 	}
-		//break;
-	//default:
-		//cout << "Выбранный вариант отсутствует" << endl;
-	//}
 	system("pause");
 }
