@@ -3,25 +3,10 @@
 #include <iostream>
 int main()
 {
-	///*try
-	//{
-	//	Calculating form;
-	//	form.input_string();
-	//	form.create_postfix_form();
-	//	form.output_postfix_form();	
-	//	form.postfix_form_volue();
-	//}
-	//catch (const char* str)
-	//{
-	//	cout << str << endl;
-	//}
-	//system("pause");*/
 	string s;
 	string postfixform;
-	double *exchange = new double[10];
-	for (int i = 0; i < 10; i++)
-		exchange[i] = 0;
 	double postfixformvolue = 0;
+	int size = 0;
 	cout << "Enter string" << endl;
 	cin >> s;
 	try
@@ -34,9 +19,11 @@ int main()
 	}
 	cout << "postfix_form:" << endl;
 	cout << postfixform << endl;
+	double *exchange = new double[postfixform.length()];
+	char * operands = new char[postfixform.length()];
 	try
 	{
-		Calculating::get_operands(postfixform, exchange); //можно ли передать как аргумента функции ссылку на массив exchange?
+		Calculating::get_operands(postfixform, exchange, operands, size); //можно ли передать как аргумента функции ссылку на массив exchange?
 	}
 	catch (const char* str)
 	{
@@ -44,7 +31,7 @@ int main()
 	}
 	try
 	{
-		postfixformvolue = Calculating::calculate(postfixform, exchange);
+		postfixformvolue = Calculating::calculate(postfixform, exchange, operands, size);
 	}
 	catch (const char* str)
 	{

@@ -15,8 +15,6 @@ public:
 	void Push(ValType);
 	void Pop();
 	ValType Top() const;
-	TStack& operator =(const TStack&);
-	bool operator == (const TStack&) const;
 };
 
 template <class ValType>
@@ -74,34 +72,4 @@ ValType TStack <ValType> ::Top() const
 	if (IsEmpty())
 		throw "Empty Stack";
 	return elements[top];
-}
-template <class ValType>
-bool TStack <ValType>::operator==(const TStack& a) const
-{
-	int f = 0;
-	if (size != a.size)
-	{
-		return false;
-	}
-		for (int i = 0; i < size; i++)
-			if (elements[i] != a.elements[i])
-				f = 1;
-		if (f == 0) return true;
-		return false;
-}
-template <class ValType>
-TStack <ValType>& TStack <ValType>::operator =(const TStack& a)
-{
-	if (*this == a)
-		return *this;
-	if (size != a.size)
-	{
-		delete[] elements;
-		size = a.size;
-		elements = new ValType[size];
-	}
-	for (int i = 0; i < size; i++)
-		elements[i] = a.elements[i];
-	top = a.top;
-	return *this;
 }
