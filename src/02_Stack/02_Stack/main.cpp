@@ -23,11 +23,12 @@ int main()
 	char * operands = new char[postfixform.length()];
 	try
 	{
-		Calculating::get_operands(postfixform, exchange, operands, size); //можно ли передать как аргумента функции ссылку на массив exchange?
+		Calculating::get_operands(postfixform, exchange, operands, size);
 	}
 	catch (const char* str)
 	{
 		cout << str << endl;
+
 	}
 	try
 	{

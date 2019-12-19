@@ -15,10 +15,43 @@ double Calculating::calculator(double a, double b, char c)
 	if (c == '*')
 		return a * b;
 	if (c == '/')
-		return a / b;
+	{
+		if (b == 0)
+			throw"EROR";
+			return a / b;
+	}
 }
 string Calculating::create_postfix(const string s)
 {
+	int flag = 0, flag1 = 0;
+	for (int i = 0; i < s.length(); i++)
+	{
+		if (s[i] == '(')
+			flag++;
+		if (s[i] == ')')
+			flag--;
+	}
+	if (flag != 0)
+		throw "EROR";
+	for (int i = 0; i < s.length(); i++)
+	{
+		if (s[i] == ')')
+		{
+			for (int k = 0; k < i; k++)
+			{
+				if (s[k] == '(')
+					flag1 = 1;
+			}
+			if (flag1 == 0)
+				throw"EROR";
+		}
+	}
+	for(int i = 1; i < s.length(); i++)
+		if (((s[i] == '+') || (s[i] == '-') || (s[i] == '*') || (s[i] == '/')) && ((s[i-1] == '+') || (s[i-1] == '-') || (s[i-1] == '*') || (s[i-1] == '/')))
+			throw "EROR";
+	for (int i = 1; i < s.length(); i++)
+		if (((s[i] != '+') && (s[i] != '-') && (s[i] != '*') && (s[i] != '/')) && ((s[i - 1] != '+') && (s[i - 1] != '-') && (s[i - 1] != '*') && (s[i - 1] != '/')))
+			throw "EROR";
 	TStack<char> operators;
 	TStack<char> operands;
 	for (int i = 0; i < s.length(); i++)

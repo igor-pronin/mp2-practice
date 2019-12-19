@@ -10,5 +10,5 @@ private:
 public:
 	static string create_postfix(const string);
 	static void get_operands(const string , double *&, char *&, int &);
-	static double calculate(const string , const double *, const char *, int);
+	static double calculate(const string, const double *, const char *, int);
 };
