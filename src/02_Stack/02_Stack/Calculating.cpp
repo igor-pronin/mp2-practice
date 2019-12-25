@@ -23,7 +23,7 @@ double Calculating::calculator(double a, double b, char c)
 }
 string Calculating::create_postfix(const string s)
 {
-	int flag = 0, flag1 = 0;
+	int flag = 0, flag1 = 0, flag2 = 0;
 	for (int i = 0; i < s.length(); i++)
 	{
 		if (s[i] == '(')
@@ -37,12 +37,13 @@ string Calculating::create_postfix(const string s)
 	{
 		if (s[i] == ')')
 		{
+			flag2++;
 			for (int k = 0; k < i; k++)
 			{
 				if (s[k] == '(')
-					flag1 = 1;
+					flag1++;
 			}
-			if (flag1 == 0)
+			if (flag1 != flag2)
 				throw"EROR";
 		}
 	}
@@ -50,7 +51,7 @@ string Calculating::create_postfix(const string s)
 		if (((s[i] == '+') || (s[i] == '-') || (s[i] == '*') || (s[i] == '/')) && ((s[i-1] == '+') || (s[i-1] == '-') || (s[i-1] == '*') || (s[i-1] == '/')))
 			throw "EROR";
 	for (int i = 1; i < s.length(); i++)
-		if (((s[i] != '+') && (s[i] != '-') && (s[i] != '*') && (s[i] != '/')) && ((s[i - 1] != '+') && (s[i - 1] != '-') && (s[i - 1] != '*') && (s[i - 1] != '/')))
+		if (((s[i] != '+') && (s[i] != '-') && (s[i] != '*') && (s[i] != '/') && (s[i] != '(') && (s[i] != ')')) && ((s[i - 1] != '+') && (s[i - 1] != '-') && (s[i - 1] != '*') && (s[i - 1] != '/') && (s[i-1] != '(') && (s[i-1] != ')')))
 			throw "EROR";
 	TStack<char> operators;
 	TStack<char> operands;
@@ -80,17 +81,17 @@ string Calculating::create_postfix(const string s)
 						}
 						else
 						{
-							while ((operators.top != 0) && (operators.Top() != '(') && (priority(s[i], operators.Top()) != true))
+							while ((operators.top != -1) && (operators.Top() != '(') && (priority(s[i], operators.Top()) != true))
 							{
 
 								operands.Push(operators.Top());
 								operators.Pop();
 							}
-							if (priority(s[i], operators.Top()) != true)
+							/*if (priority(s[i], operators.Top()) != true)
 							{
 								operands.Push(operators.Top());
 								operators.Pop();
-							}
+							}*/
 							operators.Push(s[i]);
 						}
 					}
@@ -112,6 +113,24 @@ void Calculating::get_operands(const string postfixform, double *&exchange, char
 {
 	int j = 0;
 	double a, flag = 0;
+	for (int i = 0; i < postfixform.length(); i++)
+	{
+		if ((postfixform[i] != '+') && (postfixform[i] != '-') && (postfixform[i] != '*') && (postfixform[i] != '/'))
+		{
+			for (int k = 0; k < i; k++)
+				if (postfixform[i] == postfixform[k])
+				{
+					flag = 1;
+				}
+			if (flag == 0)
+			{
+				size++;
+			}
+			flag = 0;
+		}
+	}
+	exchange = new double[size];
+	operands = new char[size];
 		for (int i = 0; i < postfixform.length(); i++)
 		{
 			if ((postfixform[i] != '+') && (postfixform[i] != '-') && (postfixform[i] != '*') && (postfixform[i] != '/'))
@@ -128,7 +147,6 @@ void Calculating::get_operands(const string postfixform, double *&exchange, char
 					cin >> a;
 					exchange[j] = a;
 					j++;
-					size++;
 				}
 				flag = 0;
 			}
