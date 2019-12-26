@@ -1,7 +1,7 @@
 #include "Stack.h"
 #include "Calculating.h"
 #include <iostream>
-int main()
+void main()
 {
 	string s;
 	string postfixform;
@@ -16,11 +16,11 @@ int main()
 	catch (const char* str)
 	{
 		cout << str << endl;
+		system("pause");
+		return;
 	}
 	cout << "postfix_form:" << endl;
 	cout << postfixform << endl;
-	//double *exchange = new double[postfixform.length()];
-	//char * operands = new char[postfixform.length()];
 	double *exchange = nullptr;
 	char *operands = nullptr;
 	try
@@ -30,17 +30,21 @@ int main()
 	catch (const char* str)
 	{
 		cout << str << endl;
-
+		system("pause");
+		return;
 	}
 	try
 	{
 		postfixformvolue = Calculating::calculate(postfixform, exchange, operands, size);
+		cout << "postfixform volue:" << endl;
+		cout << postfixformvolue;
 	}
 	catch (const char* str)
 	{
 		cout << str << endl;
 	}
-	cout << "postfixform volue:" << endl;
-	cout << postfixformvolue;
+	delete[] exchange;
+	delete[] operands;
+
 	system("pause");
 }
