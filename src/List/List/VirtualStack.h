@@ -128,6 +128,7 @@ bool TListStack<ValType>::IsFull() const
 		return true;
 	}
 	return false;*/
+	/// !!!!!!
 	typename TList<ValType, ValType>::TNode * node = new typename TList<ValType, ValType>::TNode;
 	if (node)
 	{

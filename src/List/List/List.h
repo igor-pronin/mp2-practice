@@ -11,7 +11,7 @@ public:
 		TData *pData;
 		TNode *pNext;
 	};
-public:
+public: // private
 		TNode *pFirst;
 		TNode *pPrev;
 		TNode *pNext;
@@ -19,7 +19,7 @@ public:
 public:
 	TList();
 	TList(const TList<TKey, TData>&);
-	TList(const TNode&);
+	TList(const TNode&); ///
 	~TList();
 	TNode* Search(TKey);
 	void InsertStart(TKey, TData*);
@@ -65,11 +65,12 @@ TList<TKey, TData>::TList(const TList<TKey, TData>& list)
 {
 	if (list.pFirst == nullptr)
 		throw "empty list";
+	//
 	pFirst = new TNode;
 	pFirst->key = list.pFirst->key;
-	pFirst->pData = new TData;
-	*pFirst->pData = *list.pFirst->pData;
-	pFirst->pNext = list.pFirst->pNext;//
+	pFirst->pData = new TData(*list.pFirst->pData);
+	pFirst->pNext = list.pFirst->pNext;
+	//
 	TNode* node = list.pFirst->pNext;
 	TNode* copy = pFirst;
 	while (node != nullptr)
@@ -214,10 +215,12 @@ void TList<TKey, TData>::InsertEnd(TKey key, TData* data)
 	TNode* tmp2 = pNext;
 	while (!IsEnded())
 		Next();
+	////
 	TNode* tmp = new TNode;
 	tmp->key = key;
 	tmp->pData = new TData;
 	*tmp->pData = *data;
+	////
 	pPrev->pNext = tmp;
 	tmp->pNext = nullptr;
 	if (tmp0 == pPrev)
@@ -238,11 +241,13 @@ void TList<TKey, TData>::InsertBefore(TKey key, TKey newkey, TData* data)
 {
 	if (pFirst == nullptr)
 	{
+		////
 		TNode* tmp = new TNode;
 		tmp->key = newkey;
 		tmp->pData = new TData;
 		*tmp->pData = *data;
 		tmp->pNext = nullptr;
+		////
 		pFirst = tmp;
 		pCur = pFirst;
 		return;
@@ -255,19 +260,20 @@ void TList<TKey, TData>::InsertBefore(TKey key, TKey newkey, TData* data)
 		Next();
 	if (pCur == nullptr)
 		throw "key is not found";
+	////
 	TNode* tmp = new TNode;
 	tmp->key = newkey;
 	tmp->pData = new TData;
 	*tmp->pData = *data;
 	tmp->pNext = pCur;
+	/////
 	pPrev->pNext = tmp;
 	if (pCur == tmp0)
 	{
 		pPrev = pPrev->pNext;
 		pNext = tmp2;
 	}
-	else
-	if (pPrev == tmp0)
+	else if (pPrev == tmp0)
 	{
 		pNext = pPrev->pNext;
 		pCur = tmp0;
@@ -285,11 +291,13 @@ void TList<TKey, TData>::InsertAfter(TKey key, TKey newkey, TData* data)
 {
 	if (pFirst == nullptr)
 	{
+		///
 		TNode* tmp = new TNode;
 		tmp->key = newkey;
 		tmp->pData = new TData;
 		*tmp->pData = *data;
 		tmp->pNext = nullptr;
+		////
 		pFirst = tmp;
 		pCur = pFirst;
 		return;
@@ -302,33 +310,34 @@ void TList<TKey, TData>::InsertAfter(TKey key, TKey newkey, TData* data)
 		Next();
 	if (pCur == nullptr)
 		throw "key is not found";
+	/////
 	TNode* tmp = new TNode;
 	tmp->key = newkey;
 	tmp->pData = new TData;
 	*tmp->pData = *data;
 	tmp->pNext = pNext;
 	pCur->pNext = tmp;
+	/////
 	if (pCur == tmp0)
 	{
 		pNext = pCur->pNext;
 		pPrev = tmp1;
 	}
+	else if (pNext == tmp0)
+	{
+		pPrev = pCur->pNext;
+		pCur = tmp0;
+		pNext = tmp2;
+	}
 	else
-		if (pNext == tmp0)
-		{
-			pPrev = pCur->pNext;
-			pCur = tmp0;
-			pNext = tmp2;
-		}
-		else
-		{
-			pCur = tmp0;
-			pPrev = tmp1;
-			pNext = tmp2;
-		}
+	{
+		pCur = tmp0;
+		pPrev = tmp1;
+		pNext = tmp2;
+	}
 }
 template<class TKey, class TData>
-void TList<TKey, TData>::Delete(TKey key)
+void TList<TKey, TData>::Delete(TKey key) //simplify
 {
 	if (pFirst == nullptr)
 		throw "cant delete element from empty list";

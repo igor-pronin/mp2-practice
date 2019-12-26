@@ -76,8 +76,8 @@ int main()
 	}
 	cout << "postfix_form:" << endl;
 	cout << postfixform << endl;
-	double *volue = new double[postfixform.length()];
-	char * uniqueoperands = new char[postfixform.length()];
+	double *volue = new double[postfixform.length()]; ///
+	char * uniqueoperands = new char[postfixform.length()]; //// 
 	try
 	{
 		Calculating::get_operands(postfixform, volue, uniqueoperands, size);

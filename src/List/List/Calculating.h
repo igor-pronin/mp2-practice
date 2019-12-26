@@ -16,5 +16,5 @@ public:
 	static void get_operands(const string, double *&, char *&, int &);
 	double calculate(const string, double *, char *, int);
 public:
-	Calculating(int, int);
+	Calculating(int, int); // second parameter
 };
