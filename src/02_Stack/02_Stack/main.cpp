@@ -21,8 +21,8 @@ int main()
 	cout << postfixform << endl;
 	//double *exchange = new double[postfixform.length()];
 	//char * operands = new char[postfixform.length()];
-	double *exchange;
-	char *operands;
+	double *exchange = nullptr;
+	char *operands = nullptr;
 	try
 	{
 		Calculating::get_operands(postfixform, exchange, operands, size);
