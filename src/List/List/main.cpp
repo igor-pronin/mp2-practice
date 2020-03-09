@@ -46,7 +46,7 @@ int main()
 		}
 		cout << "L2Delete:" << endl << L2 << endl;
 		L2.Reset();
-		cout << "L2Reset:" << " " << L2.pCur->key << " " << *L2.pCur->pData << endl << endl;
+		cout << "L2Reset:" << " " << L2.Get_pCur_key() << " " << L2.Get_pCur_data() << endl << endl;
 		try
 		{
 			L2.Next();
@@ -55,12 +55,13 @@ int main()
 		{
 			cout << str;
 		}
-		cout << "L2Next:" << " " << L2.pCur->key << " " << *L2.pCur->pData << endl << endl;
+		cout << "L2Next:" << " " << L2.Get_pCur_key() << " " << L2.Get_pCur_data() << endl << endl;
 	string s;
 	string postfixform;
 	int tipe;
 	double postfixformvolue = 0;
 	int size = 0;
+	int sizesize;
 	cout << "Enter string" << endl;
 	cin >> s;
 	cout << "Enter 1 to creat TArrayStack, enter 2 to create TListStack" << endl;
@@ -76,8 +77,9 @@ int main()
 	}
 	cout << "postfix_form:" << endl;
 	cout << postfixform << endl;
-	double *volue = new double[postfixform.length()]; ///
-	char * uniqueoperands = new char[postfixform.length()]; //// 
+	sizesize = Postfix.sizeforarray(postfixform);
+	double *volue = new double[sizesize]; 
+	char * uniqueoperands = new char[sizesize]; //// 
 	try
 	{
 		Calculating::get_operands(postfixform, volue, uniqueoperands, size);
@@ -97,4 +99,4 @@ int main()
 	cout << "postfixform volue:" << endl;
 	cout << postfixformvolue;
 	system("pause");
-}
+}//добавлены конструкторы TNode, упростил функция delete, изменил выделение памяти под массив уникальных переменных

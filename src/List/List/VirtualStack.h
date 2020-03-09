@@ -1,5 +1,5 @@
 #pragma once
-#include "List.h"
+#include"List.h"
 template<typename ValType>
 class TStack
 {
@@ -119,17 +119,7 @@ TListStack<ValType>::~TListStack()
 template<typename ValType>
 bool TListStack<ValType>::IsFull() const
 {
-	/*try
-	{
-	typename TList<ValType, ValType>::TNode * tmp = new typename TList<ValType, ValType>::TNode;
-	}
-	catch (...)
-	{
-		return true;
-	}
-	return false;*/
-	/// !!!!!!
-	typename TList<ValType, ValType>::TNode * node = new typename TList<ValType, ValType>::TNode;
+	TNode<ValType, ValType>* node = new TNode<ValType, ValType>;
 	if (node)
 	{
 		delete node;
@@ -155,13 +145,13 @@ void TListStack<ValType>::Pop()
 {
 	if (IsEmpty())
 		throw"cant complete pop, empty list";
-	list->Delete(list->pFirst->key);
+	list->Delete(list->Get_pFirst_key());
 }
 template<typename ValType>
 ValType TListStack<ValType>::Top() const
 {
 	if (IsEmpty())
 		throw"cant return top, empty list";
-	return list->pFirst->key;
+	return list->Get_pFirst_key();
 }
 

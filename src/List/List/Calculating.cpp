@@ -178,3 +178,24 @@ double Calculating::calculate(const string postfixform, double * volue, char * u
 	}
 	return finalvolue->Top();
 }
+double Calculating::sizeforarray(const string postfixform)
+{
+	double flag0 = 0, sizeforarray = 0;
+	for (int i = 0; i < postfixform.length(); i++)
+	{
+		if ((postfixform[i] != '+') && (postfixform[i] != '-') && (postfixform[i] != '*') && (postfixform[i] != '/'))
+		{
+			for (int k = 0; k < i; k++)
+				if (postfixform[i] == postfixform[k])
+				{
+					flag0 = 1;
+				}
+			if (flag0 == 0)
+			{
+				sizeforarray++;
+			}
+			flag0 = 0;
+		}
+	}
+	return sizeforarray;
+}

@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClInclude Include="Calculating.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="VirtualStack.h" />
   </ItemGroup>
   <ItemGroup>

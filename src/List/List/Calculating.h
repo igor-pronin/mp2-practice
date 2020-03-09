@@ -15,6 +15,7 @@ public:
 	string create_postfix(const string);
 	static void get_operands(const string, double *&, char *&, int &);
 	double calculate(const string, double *, char *, int);
+	double sizeforarray(const string);
 public:
-	Calculating(int, int); // second parameter
+	Calculating(int, int);
 };
