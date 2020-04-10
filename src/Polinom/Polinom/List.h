@@ -60,7 +60,10 @@ template<class TKey, class TData, class TTipe>
 TList<TKey, TData, TTipe>::TList(const TList<TKey, TData, TTipe>& list)
 {
 	if (list.pFirst == nullptr)
-		throw "empty list";
+	{
+		TList();
+		return;
+	}
 	pFirst = new TTipe(*list.pFirst);
 	TTipe* node = list.pFirst->pNext;
 	TTipe* copy = pFirst;
@@ -93,12 +96,19 @@ TList<TKey, TData, TTipe>::TList(const TTipe* node)
 template<class TKey, class TData, class TTipe>
 TList<TKey, TData, TTipe>::~TList()
 {
-	while (!IsEnded())
+	/*while (!IsEnded())
 	{
 		Next();
 		delete[] pPrev;
 	}
-	delete[] pCur;
+	delete[] pCur;*/
+	TTipe* copy = pFirst;
+	while (copy != 0)
+	{
+		TTipe* copy1 = copy->pNext;
+		delete copy;
+		copy = copy1;
+	}
 }
 template<class TKey, class TData, class TTipe>
 void TList<TKey, TData, TTipe>::Reset()
@@ -165,6 +175,7 @@ void TList<TKey, TData, TTipe>::InsertEnd(TKey key, TData data)
 	if (pFirst == nullptr)
 	{
 		InsertStart(key, data);
+		return;
 	}
 	TTipe* tmp0 = pCur;
 	TTipe* tmp1 = pPrev;

@@ -29,6 +29,8 @@ Polinom::Polinom(const string& polinom)
 		Monom monom(str);
 		if (monom.pData != 0)
 			*this = *this + monom;
+			//*this += monom;
+		cout << "good morning";
 		str = "";
 	}
 }
@@ -51,8 +53,9 @@ Polinom Polinom::operator+(const Monom& monom)
 			result.poli->InsertBefore(monom.key, k, monom.pData);
 		}
 		else
+			if (*result.poli->GetpCur() == monom)
 			*result.poli->GetpCur() = *result.poli->GetpCur() + monom;
-	//result.poli->Reset();
+	result.poli->Reset();
 	return result;
 }
 Polinom Polinom::operator-(const Monom& monom)
@@ -71,12 +74,12 @@ Polinom Polinom::operator*(const Monom& monom)
 	//result.poli->Reset();
 	return result;
 }
-//Polinom& Polinom::operator+=(const Monom& monom)
-//{
-//	Polinom result(*this);
-//	*this = result + monom;
-//	return (*this);
-//}
+Polinom& Polinom::operator+=(const Monom& monom)
+{
+	Polinom result(*this);
+	*this = result + monom;
+	return (*this);
+}
 //Polinom& Polinom::operator-=(const Monom& monom)
 //{
 //	Polinom result(*this);

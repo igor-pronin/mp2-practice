@@ -6,21 +6,29 @@ void main()
 	Polinom pol1;
 	Polinom pol2;
 	Polinom pol3;
-	cout << "Enter polinom 1" << endl;
-	cin >> pol1;
-	cout << "Enter polinom 2" << endl;
-	cin >> pol2;
-	cout << "Polinom 1:" << endl;
-	cout << pol1;
-	cout << "Polinom 2:" << endl;
-	cout << pol2;
-	cout << "Polinom 1 + Polinom 2" << endl;
-	pol3 = pol1 + pol2;
-	cout << pol3;
-	cout << "Polinom 1 - Polinom 2" << endl;
-	pol3 = pol1 - pol2;
-	cout << pol3;
-	cout << "Polinom 1 * Polinom 2" << endl;
-	pol3 = pol1 * pol2;
-	cout << pol3;
+	try
+	{
+		cout << "Enter polinom 1" << endl;
+		cin >> pol1;
+		cout << "Enter polinom 2" << endl;
+		cin >> pol2;
+		cout << "Polinom 1:" << endl;
+		cout << pol1;
+		cout << "Polinom 2:" << endl;
+		cout << pol2;
+		cout << "Polinom 1 + Polinom 2" << endl;
+		pol3 = pol1 + pol2;
+		cout << pol3;
+		cout << "Polinom 1 - Polinom 2" << endl;
+		pol3 = pol1 - pol2;
+		cout << pol3;
+		cout << "Polinom 1 * Polinom 2" << endl;
+		pol3 = pol1 * pol2;
+		cout << pol3;
+	}
+	catch (const char* str)
+	{
+	cout << str;
+	}
+	system("pause");
 }

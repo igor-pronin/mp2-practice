@@ -1,5 +1,6 @@
 #pragma once
 #include "List.h"
+#include "Monom.h"
 class Polinom
 {
 private:
@@ -12,7 +13,7 @@ public:
 	Polinom operator+(const Monom&);
 	Polinom operator-(const Monom&);
 	Polinom operator*(const Monom&);
-	//Polinom& operator+=(const Monom&);
+	Polinom& operator+=(const Monom&);
 	//Polinom& operator-=(const Monom&);
 	//Polinom& operator*=(const Monom&);
 	Polinom operator+(const Polinom&);

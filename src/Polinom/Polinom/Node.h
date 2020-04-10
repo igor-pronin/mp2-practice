@@ -7,7 +7,7 @@ class TNode
 public:
 	TKey key;
 	TData pData;
-	TNode *pNext;
+	TNode* pNext;
 public:
 	TNode();
 	TNode(TKey, TData, TNode* = nullptr);
