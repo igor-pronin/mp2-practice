@@ -53,7 +53,7 @@ string Calculating::create_postfix(const string s)
 			flag--;
 	}
 	if (flag != 0)
-		throw "EROR";
+		throw "EROR1";
 	for (int i = 0; i < s.length(); i++)
 	{
 		if (s[i] == ')')
@@ -65,15 +65,15 @@ string Calculating::create_postfix(const string s)
 					flag1++;
 			}
 			if (flag1 != flag2)
-				throw"EROR";
+				throw"EROR2";
 		}
 	}
 	for (int i = 1; i < s.length(); i++)
 		if (((s[i] == '+') || (s[i] == '-') || (s[i] == '*') || (s[i] == '/')) && ((s[i - 1] == '+') || (s[i - 1] == '-') || (s[i - 1] == '*') || (s[i - 1] == '/')))
-			throw "EROR";
+			throw "EROR3";
 	for (int i = 1; i < s.length(); i++)
 		if (((s[i] != '+') && (s[i] != '-') && (s[i] != '*') && (s[i] != '/') && (s[i] != '(') && (s[i] != ')')) && ((s[i - 1] != '+') && (s[i - 1] != '-') && (s[i - 1] != '*') && (s[i - 1] != '/') && (s[i - 1] != '(') && (s[i - 1] != ')')))
-			throw "EROR";
+			throw "EROR4";
 	for (int i = 0; i < s.length(); i++)
 	{
 		if ((s[i] == '+') || (s[i] == '-') || (s[i] == '*') || (s[i] == '/') || (s[i] == ')') || (s[i] == '('))
