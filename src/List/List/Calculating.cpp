@@ -66,6 +66,7 @@ string Calculating::create_postfix(const string s)
 			}
 			if (flag1 != flag2)
 				throw"EROR2";
+			flag1 = 0;
 		}
 	}
 	for (int i = 1; i < s.length(); i++)

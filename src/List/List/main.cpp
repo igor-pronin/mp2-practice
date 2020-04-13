@@ -98,5 +98,4 @@ int main()
 	}
 	cout << "postfixform volue:" << endl;
 	cout << postfixformvolue;
-	system("pause");
 }//добавлены конструкторы TNode, упростил функция delete, изменил выделение памяти под массив уникальных переменных, приватные поля List, добавил конструкторы в List
