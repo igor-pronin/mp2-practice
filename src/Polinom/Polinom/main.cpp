@@ -13,18 +13,18 @@ void main()
 		cout << "Enter polinom 2" << endl;
 		cin >> pol2;
 		cout << "Polinom 1:" << endl;
-		cout << pol1;
+		cout << pol1 << endl;
 		cout << "Polinom 2:" << endl;
-		cout << pol2;
+		cout << pol2 << endl;
 		cout << "Polinom 1 + Polinom 2" << endl;
 		pol3 = pol1 + pol2;
-		cout << pol3;
+		cout << pol3 << endl;
 		cout << "Polinom 1 - Polinom 2" << endl;
 		pol3 = pol1 - pol2;
-		cout << pol3;
+		cout << pol3 << endl;
 		cout << "Polinom 1 * Polinom 2" << endl;
 		pol3 = pol1 * pol2;
-		cout << pol3;
+		cout << pol3 << endl;
 	}
 	catch (const char* str)
 	{

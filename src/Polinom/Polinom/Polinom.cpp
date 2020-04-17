@@ -29,8 +29,6 @@ Polinom::Polinom(const string& polinom)
 		Monom monom(str);
 		if (monom.pData != 0)
 			*this = *this + monom;
-			//*this += monom;
-		cout << "good morning";
 		str = "";
 	}
 }
@@ -42,7 +40,7 @@ Polinom Polinom::operator+(const Monom& monom)
 {
 	Polinom result(*this);
 	result.poli->Reset();
-	while (!result.poli->IsEnded() && *result.poli->GetpCur() < monom && *result.poli->GetpCur() == monom)
+	while (!result.poli->IsEnded() && *result.poli->GetpCur() < monom && *result.poli->GetpCur() != monom)
 		result.poli->Next();
 	if (result.poli->IsEnded())
 		result.poli->InsertEnd(monom.key, monom.pData);
@@ -94,22 +92,45 @@ Polinom& Polinom::operator+=(const Monom& monom)
 //}
 Polinom Polinom::operator+(const Polinom& polinom)
 {
-	Polinom result;
-	poli->Reset();
+	Polinom result(*this);
+	result.poli->Reset();
+	if (result.poli->GetpCur() == nullptr)
+		return polinom;
 	polinom.poli->Reset();
-	while (!poli->IsEnded() && !polinom.poli->IsEnded())
+	if (polinom.poli->GetpCur() == nullptr)
+		return result;
+	//while (!poli->IsEnded() && !polinom.poli->IsEnded())
+	while (!polinom.poli->IsEnded())
 	{
-		if (*poli->GetpCur() < *polinom.poli->GetpCur())
+		if (*result.poli->GetpCur() < *polinom.poli->GetpCur())
 		{
-			result.poli->InsertEnd(poli->GetpCur()->key, poli->GetpCur()->pData);
-			//result.poli->Reset();
-			poli->Next();
+			//result.poli->Next();
+			while (*result.poli->GetpCur() < *polinom.poli->GetpCur() && !result.poli->IsEnded() && result.poli->GetpCur()->key != polinom.poli->GetpCur()->key)
+			{
+				result.poli->Next();
+			}
+			if (result.poli->IsEnded())
+			{
+				result.poli->Reset();
+				result.poli->InsertEnd(polinom.poli->GetpCur()->key, polinom.poli->GetpCur()->pData);
+				result.poli->Reset();
+			}
+			else
+			if (result.poli->GetpCur()->key == polinom.poli->GetpCur()->key)
+			{
+				result.poli->GetpCur()->pData = result.poli->GetpCur()->pData + polinom.poli->GetpCur()->pData;
+				result.poli->Reset();
+			}
+			else
+			{
+				result.poli->InsertBefore(result.poli->GetpCur()->key, polinom.poli->GetpCur()->key, polinom.poli->GetpCur()->pData);
+				result.poli->Reset();
+			}
 		}
-		else if (*poli->GetpCur() > *polinom.poli->GetpCur())
+		else if (*result.poli->GetpCur() > *polinom.poli->GetpCur())
 		{
-			result.poli->InsertEnd(polinom.poli->GetpCur()->key, polinom.poli->GetpCur()->pData);
-			//result.poli->Reset();
-			polinom.poli->Next();
+			result.poli->InsertStart(polinom.poli->GetpCur()->key, polinom.poli->GetpCur()->pData);
+			result.poli->Reset();
 		}
 		else if (*poli->GetpCur() == *polinom.poli->GetpCur())
 		{
@@ -118,20 +139,21 @@ Polinom Polinom::operator+(const Polinom& polinom)
 			poli->Next();
 			polinom.poli->Next();
 		}
-	}
-	while (!poli->IsEnded())
-	{
-		result.poli->InsertEnd(poli->GetpCur()->key, poli->GetpCur()->pData);
-		//result.poli->Reset();
-		poli->Next();
-	}
-	while (!polinom.poli->IsEnded())
-	{
-		result.poli->InsertEnd(polinom.poli->GetpCur()->key, polinom.poli->GetpCur()->pData);
-		//result.poli->Reset();
 		polinom.poli->Next();
 	}
-	//result.poli->Reset();
+	//while (!poli->IsEnded())
+	//{
+	//	result.poli->InsertEnd(poli->GetpCur()->key, poli->GetpCur()->pData);
+	//	//result.poli->Reset();
+	//	poli->Next();
+	//}
+	//while (!polinom.poli->IsEnded())
+	//{
+	//	result.poli->InsertEnd(polinom.poli->GetpCur()->key, polinom.poli->GetpCur()->pData);
+	//	//result.poli->Reset();
+	//	polinom.poli->Next();
+	//}
+	result.poli->Reset();
 	return result;
 }
 Polinom Polinom::operator-(const Polinom& polinom)
@@ -196,21 +218,21 @@ istream& operator>>(istream& in, Polinom& polinom)
 ostream& operator<<(ostream& out, const Polinom& polinom)
 {
 	polinom.poli->Reset();
-	cout << polinom.poli->GetpCur()->pData << endl;
+	cout << polinom.poli->GetpCur()->pData;
 	if (polinom.poli->GetpCur()->key / 100 == 1)
 		cout << "*x";
 	if (polinom.poli->GetpCur()->key / 100 != 0 && polinom.poli->GetpCur()->key / 100 != 1)
-		cout << "*x^";
+		cout << "*x^" << polinom.poli->GetpCur()->key / 100;
 	if (polinom.poli->GetpCur()->key % 100 / 10 == 1)
 		cout << "*y";
 	if (polinom.poli->GetpCur()->key % 100 / 10 != 0 && polinom.poli->GetpCur()->key % 100 / 10 != 1)
-		cout << "*y^";
+		cout << "*y^" << polinom.poli->GetpCur()->key % 100 / 10;
 	if (polinom.poli->GetpCur()->key % 100 % 10 == 1)
 		cout << "*z";
 	if (polinom.poli->GetpCur()->key % 100 % 10 != 0 && polinom.poli->GetpCur()->key % 100 % 10 != 1)
-		cout << "*z^";
+		cout << "*z^" << polinom.poli->GetpCur()->key % 100 % 10;
 	polinom.poli->Next();
-	while (polinom.poli->IsEnded())
+	while (!polinom.poli->IsEnded())
 	{
 		if (polinom.poli->GetpCur()->pData > 0)
 		{
@@ -222,16 +244,16 @@ ostream& operator<<(ostream& out, const Polinom& polinom)
 		if (polinom.poli->GetpCur()->key / 100 == 1)
 			cout << "*x";
 		if (polinom.poli->GetpCur()->key / 100 != 0 && polinom.poli->GetpCur()->key / 100 != 1)
-			cout << "*x^";
+			cout << "*x^" << polinom.poli->GetpCur()->key / 100;
 		if (polinom.poli->GetpCur()->key % 100 / 10 == 1)
 			cout << "*y";
 		if (polinom.poli->GetpCur()->key % 100 / 10 != 0 && polinom.poli->GetpCur()->key % 100 / 10 != 1)
-			cout << "*y^";
+			cout << "*y^" << polinom.poli->GetpCur()->key % 100 / 10;
 		if (polinom.poli->GetpCur()->key % 100 % 10 == 1)
 			cout << "*z";
 		if (polinom.poli->GetpCur()->key % 100 % 10 != 0 && polinom.poli->GetpCur()->key % 100 % 10 != 1)
-			cout << "*z^";
+			cout << "*z^" << polinom.poli->GetpCur()->key % 100 % 10;
 		polinom.poli->Next();
-		return out;
 	}
+	return out;
 }

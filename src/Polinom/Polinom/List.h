@@ -96,12 +96,6 @@ TList<TKey, TData, TTipe>::TList(const TTipe* node)
 template<class TKey, class TData, class TTipe>
 TList<TKey, TData, TTipe>::~TList()
 {
-	/*while (!IsEnded())
-	{
-		Next();
-		delete[] pPrev;
-	}
-	delete[] pCur;*/
 	TTipe* copy = pFirst;
 	while (copy != 0)
 	{
@@ -180,6 +174,7 @@ void TList<TKey, TData, TTipe>::InsertEnd(TKey key, TData data)
 	TTipe* tmp0 = pCur;
 	TTipe* tmp1 = pPrev;
 	TTipe* tmp2 = pNext;
+	Reset();
 	while (!IsEnded())
 		Next();
 	TTipe* tmp = new TTipe(key, data);
@@ -190,6 +185,19 @@ void TList<TKey, TData, TTipe>::InsertEnd(TKey key, TData data)
 		pCur = tmp0;
 		pPrev = tmp1;
 	}
+	else
+		if (tmp0 == nullptr)
+	{
+		pCur = tmp0;
+		pPrev = pPrev->pNext;
+		pNext = tmp2;
+	}
+		else
+		{
+			pCur = tmp0;
+			pPrev = tmp1;
+			pNext = tmp2;
+		}
 }
 template<class TKey, class TData, class TTipe>
 void TList<TKey, TData, TTipe>::InsertBefore(TKey key, TKey newkey, TData data)
@@ -204,7 +212,7 @@ void TList<TKey, TData, TTipe>::InsertBefore(TKey key, TKey newkey, TData data)
 		Next();
 	if (pCur == nullptr)
 		throw "key is not found";
-	TTipe* tmp = new TTipe(newkey, data, pCur);
+	TTipe* tmp = new TTipe(newkey, data, pPrev);
 	pPrev->pNext = tmp;
 	if (pCur == tmp0)
 	{
