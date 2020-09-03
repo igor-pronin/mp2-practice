@@ -1,13 +1,14 @@
 #include"Calculating.h"
-Calculating::Calculating(int tipe, int size)
+Calculating::Calculating(int tipe, string string)
 {
+	s = string;
 	switch (tipe)
 	{
 	case 1:
 	{
-		operators = new TArrayStack<char>(size);
-		operands = new TArrayStack<char>(size);
-		finalvolue = new TArrayStack<double>(size);
+		operators = new TArrayStack<char>(string.length());
+		operands = new TArrayStack<char>(string.length());
+		finalvolue = new TArrayStack<double>(string.length());
 		break;
 	}
 	case 2:
@@ -42,7 +43,7 @@ double Calculating::calculator(double a, double b, char c)
 		return a / b;
 	}
 }
-string Calculating::create_postfix(const string s)
+string Calculating::create_postfix()
 {
 	int flag = 0, flag1 = 0, flag2 = 0;
 	for (int i = 0; i < s.length(); i++)
@@ -131,6 +132,7 @@ string Calculating::create_postfix(const string s)
 }
 void Calculating::get_operands(const string postfixform, double *&volue, char *&uniqueoperands, int & size)
 {
+	int j = 0;
 	double a, flag = 0;
 	for (int i = 0; i < postfixform.length(); i++)
 	{
@@ -143,11 +145,29 @@ void Calculating::get_operands(const string postfixform, double *&volue, char *&
 				}
 			if (flag == 0)
 			{
-				uniqueoperands[size] = postfixform[i];
+				size++;
+			}
+			flag = 0;
+		}
+	}
+	volue = new double[size];
+	uniqueoperands = new char[size];
+	for (int i = 0; i < postfixform.length(); i++)
+	{
+		if ((postfixform[i] != '+') && (postfixform[i] != '-') && (postfixform[i] != '*') && (postfixform[i] != '/'))
+		{
+			for (int k = 0; k < i; k++)
+				if (postfixform[i] == postfixform[k])
+				{
+					flag = 1;
+				}
+			if (flag == 0)
+			{
+				uniqueoperands[j] = postfixform[i];
 				cout << "Enter the meaning of " << postfixform[i] << endl;
 				cin >> a;
-				volue[size] = a;
-				size++;
+				volue[j] = a;
+				j++;
 			}
 			flag = 0;
 		}
@@ -178,25 +198,4 @@ double Calculating::calculate(const string postfixform, double * volue, char * u
 		}
 	}
 	return finalvolue->Top();
-}
-double Calculating::sizeforarray(const string postfixform)
-{
-	double flag0 = 0, sizeforarray = 0;
-	for (int i = 0; i < postfixform.length(); i++)
-	{
-		if ((postfixform[i] != '+') && (postfixform[i] != '-') && (postfixform[i] != '*') && (postfixform[i] != '/'))
-		{
-			for (int k = 0; k < i; k++)
-				if (postfixform[i] == postfixform[k])
-				{
-					flag0 = 1;
-				}
-			if (flag0 == 0)
-			{
-				sizeforarray++;
-			}
-			flag0 = 0;
-		}
-	}
-	return sizeforarray;
 }

@@ -1,5 +1,3 @@
-#include "List.h"
-#include "VirtualStack.h"
 #include "Calculating.h"
 #include <iostream>
 int main()
@@ -66,10 +64,10 @@ int main()
 	cin >> s;
 	cout << "Enter 1 to creat TArrayStack, enter 2 to create TListStack" << endl;
 	cin >> tipe;
-	Calculating Postfix(tipe, s.length());
+	Calculating Postfix(tipe, s);
 	try
 	{
-		postfixform = Postfix.create_postfix(s);
+		postfixform = Postfix.create_postfix();
 	}
 	catch (const char* str)
 	{
@@ -77,12 +75,11 @@ int main()
 	}
 	cout << "postfix_form:" << endl;
 	cout << postfixform << endl;
-	sizesize = Postfix.sizeforarray(postfixform);
-	double *volue = new double[sizesize]; 
-	char * uniqueoperands = new char[sizesize]; //// 
+	double *volue = nullptr;
+	char * uniqueoperands = nullptr;
 	try
 	{
-		Calculating::get_operands(postfixform, volue, uniqueoperands, size);
+		Postfix.get_operands(postfixform, volue, uniqueoperands, size);
 	}
 	catch (const char* str)
 	{
@@ -98,4 +95,6 @@ int main()
 	}
 	cout << "postfixform volue:" << endl;
 	cout << postfixformvolue;
-}//добавлены конструкторы TNode, упростил функци€ delete, изменил выделение пам€ти под массив уникальных переменных, приватные пол€ List, добавил конструкторы в List
+	delete[] volue;
+	delete[] uniqueoperands;
+}//выделение/удаление пам€ти, разделение VirtualStack на три файла, без статических методов, поле string в Calculating.  
